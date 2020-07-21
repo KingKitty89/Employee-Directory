@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import AppBar from "../AppBar";
 
 const useStyles = makeStyles({
   table: {
@@ -31,6 +32,9 @@ export default function SimpleTable() {
 
   return (
     <TableContainer component={Paper}>
+      <AppBar 
+        
+         />
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
