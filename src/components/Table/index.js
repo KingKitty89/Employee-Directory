@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,57 +8,87 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import AppBar from "../AppBar";
+import Results from "../Results";
 
-const useStyles = makeStyles({
+
+const styles = () =>
+  createStyles({
+
   table: {
     minWidth: 650,
   },
 });
+class UsersTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [],
+      search: "",
+      searchBy: "fullName",
+    };
+  }
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+  handleInputChange = (event) => {
+    // Getting the value and name of the input
+    let value = event.target.value;
+    const name = event.target.name;
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-export default function SimpleTable() {
-  const classes = useStyles();
+    // Updating the input's state
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => console.log(this.state)
+    );
+  };
+  
+  render() {
+    const { classes } = this.props;
 
   return (
     <TableContainer component={Paper}>
       <AppBar 
-        
+         search={this.state.search}
+         handleInputChange={this.handleInputChange}
          />
+       
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+            <TableCell>
+            
+            Image</TableCell>
+            <TableCell align="center">
+            
+            Full Name</TableCell>
+            <TableCell align="center">
+            
+            Phone</TableCell>
+            <TableCell align="center">
+            
+            Email
+            </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+          </TableHead>
+          <TableBody>
+            {/* filtering through users to search by full name */}
+            {this.state.users
+          
+              .map((user, i) => (
+                <Results
+                  key={i}
+                  thumbnail={user.picture.thumbnail}
+                  fullName={user.fullName}
+                  phone={user.phone}
+                  email={user.email}
+                />
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    
+    );
+  }
 }
+
+export default withStyles(styles)(UsersTable);
