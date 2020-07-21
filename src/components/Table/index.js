@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import AppBar from "../AppBar";
+import API from "../../utils/API";
 import Results from "../Results";
 
 
@@ -27,6 +28,22 @@ class UsersTable extends Component {
       searchBy: "fullName",
     };
   }
+  
+  componentDidMount() {
+    API.getUsers()
+      .then((res) => {
+        
+        const tableData = res.data.results.map((user) => ({
+          ...user,
+          thumbnail: user.picture.thumbnail,
+          fullName: user.name.first + " " + user.name.last,
+          phone: user.phone,
+          email: user.email,
+        }));
+        this.setState({ users: tableData }, () => console.log(this.state));
+      })
+      .catch((err) => console.log(err));
+  }
 
   handleInputChange = (event) => {
     // Getting the value and name of the input
@@ -41,7 +58,7 @@ class UsersTable extends Component {
       () => console.log(this.state)
     );
   };
-  
+
   render() {
     const { classes } = this.props;
 
