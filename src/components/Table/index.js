@@ -76,6 +76,8 @@ class UsersTable extends Component {
 
   return (
     <TableContainer component={Paper}>
+
+      
       <AppBar 
          search={this.state.search}
          handleInputChange={this.handleInputChange}
@@ -87,23 +89,24 @@ class UsersTable extends Component {
           <TableRow>
             <TableCell>
             
-            <strong>Image</strong></TableCell>
+            
+            <u><strong>Image</strong></u></TableCell>
             <TableCell align="center" onClick={() => {
               this.sortAlphaName();
 
             }}>
             
-            <strong>Full Name</strong></TableCell>
+            <u><strong>Full Name</strong></u></TableCell>
             <TableCell align="center" onClick={() => {
               this.sortAlphaName();
             }}>
             
-            <strong>Phone</strong></TableCell>
+            <u><strong>Phone</strong></u></TableCell>
             <TableCell align="center" onClick={() => {
               this.sortAlphaName();
             }}>
             
-            <strong>Email</strong> </TableCell>
+            <u><strong>Email</strong></u></TableCell>
             <TableCell align="center" onClick={() => {
               this.sortAlphaName();
             }}>

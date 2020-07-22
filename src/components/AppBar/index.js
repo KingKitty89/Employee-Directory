@@ -8,12 +8,16 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+ 
+   
   },
   title: {
     flexGrow: 1,
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      color: "yellow",
+      
     },
   },
   search: {
@@ -55,13 +59,13 @@ export default function SearchAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h4" noWrap>
             Employee Directory
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
             </div>
-            <InputBase value={props.search} placeholder= " search" name="search" onChange={props.handleInputChange} variant="outlined" />
+            <InputBase value={props.search} placeholder= " search by name" name="search" onChange={props.handleInputChange} variant="outlined" />
           </div>
         </Toolbar>
       </AppBar>
