@@ -19,20 +19,21 @@ const styles = () =>
     minWidth: 650,
   },
 });
+
 class UsersTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
       search: "",
-      searchBy: "fullName",
+      searchBy: "fullName"
+      
     };
   }
   
   componentDidMount() {
     API.getUsers()
       .then((res) => {
-        
         const tableData = res.data.results.map((user) => ({
           ...user,
           thumbnail: user.picture.thumbnail,
@@ -43,6 +44,7 @@ class UsersTable extends Component {
         this.setState({ users: tableData }, () => console.log(this.state));
       })
       .catch((err) => console.log(err));
+      
   }
 
   handleInputChange = (event) => {
@@ -59,6 +61,16 @@ class UsersTable extends Component {
     );
   };
 
+  //sort full names alphabetically
+    sortAlphaName() {
+      this.setState({
+        users: this.state.users.sort((a, b) =>
+          a.name.first > b.name.first ? 1 : -1
+        ),
+      });
+    }
+   
+    
   render() {
     const { classes } = this.props;
 
@@ -67,6 +79,7 @@ class UsersTable extends Component {
       <AppBar 
          search={this.state.search}
          handleInputChange={this.handleInputChange}
+       
          />
        
       <Table className={classes.table} aria-label="simple table">
@@ -74,22 +87,38 @@ class UsersTable extends Component {
           <TableRow>
             <TableCell>
             
-            Image</TableCell>
-            <TableCell align="center">
+            <strong>Image</strong></TableCell>
+            <TableCell align="center" onClick={() => {
+              this.sortAlphaName();
+
+            }}>
             
-            Full Name</TableCell>
-            <TableCell align="center">
+            <strong>Full Name</strong></TableCell>
+            <TableCell align="center" onClick={() => {
+              this.sortAlphaName();
+            }}>
             
-            Phone</TableCell>
-            <TableCell align="center">
+            <strong>Phone</strong></TableCell>
+            <TableCell align="center" onClick={() => {
+              this.sortAlphaName();
+            }}>
             
-            Email
+            <strong>Email</strong> </TableCell>
+            <TableCell align="center" onClick={() => {
+              this.sortAlphaName();
+            }}>
             </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* filtering through users to search by full name */}
+           
             {this.state.users
+            .filter(
+              (user) =>
+                user.fullName
+                  .toLowerCase()
+                  .includes(this.state.search.toLowerCase().trim()) 
+            )
           
               .map((user, i) => (
                 <Results
