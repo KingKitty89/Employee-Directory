@@ -90,7 +90,7 @@ class UsersTable extends Component {
             <TableCell>
             
             
-            <u><strong>Image</strong></u></TableCell>
+            <u><strong></strong></u></TableCell>
             <TableCell align="center" onClick={() => {
               this.sortAlphaName();
 

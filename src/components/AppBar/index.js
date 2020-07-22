@@ -59,8 +59,11 @@ export default function SearchAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h4" noWrap>
+          <Typography className={classes.title} variant="h5" noWrap>
             Employee Directory
+          </Typography>
+          <Typography className={classes.title} variant="subtitle2" noWrap>
+            click on a heading to sort names alphabetically
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
